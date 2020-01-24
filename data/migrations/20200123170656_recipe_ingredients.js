@@ -7,6 +7,8 @@ exports.up = function(knex) {
         .string('recipe_name', 255)
         .notNullable()
         .index();
+
+      tbl.string('steps', 300);
     })
 
     .createTable('ingredients', tbl => {
@@ -17,27 +19,7 @@ exports.up = function(knex) {
         .notNullable()
         .index();
 
-      tbl.float('qauntity').notNullable();
-    })
-
-    .createTable('steps', tbl => {
-      tbl.increments();
-
-      tbl.string('steps_name', 255).notNullable();
-      tbl.string('description', 255).notNullable();
-
-      tbl
-        .integer('ingredients_id')
-        .references('id')
-        .inTable('ingredients')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE');
-      tbl
-        .integer('recipe_id')
-        .references('id')
-        .inTable('recipes')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE');
+      // tbl.float('qauntity').notNullable();
     })
 
     .createTable('recipe_ingredient', tbl => {
@@ -61,7 +43,6 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists('recipe_ingredient')
-    .dropTableIfExists('steps')
     .dropTableIfExists('ingredients')
     .dropTableIfExists('recipes');
 };
