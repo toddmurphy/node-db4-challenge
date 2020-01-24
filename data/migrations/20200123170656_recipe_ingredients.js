@@ -19,7 +19,7 @@ exports.up = function(knex) {
         .notNullable()
         .index();
 
-      // tbl.float('qauntity').notNullable();
+      tbl.float('quantity').notNullable();
     })
 
     .createTable('recipe_ingredient', tbl => {
